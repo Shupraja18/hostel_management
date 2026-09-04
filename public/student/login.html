@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Student Login | HostelCare</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+
+  <div class="auth-container">
+
+    <div class="auth-card">
+
+      <div class="auth-logo">
+        <h1>HostelCare</h1>
+        <p>Student Hostel Management System</p>
+      </div>
+
+      <div class="role-badge">🎓 Student Access</div>
+
+      <h2>Student Login</h2>
+
+      <div id="errorMessage" class="error-message"></div>
+
+      <form id="loginForm">
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+
+          <input
+            type="email"
+            id="email"
+            placeholder="student@hostelcare.com"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+          >
+        </div>
+
+        <button
+          type="submit"
+          class="auth-button"
+          id="loginButton"
+        >
+          Login
+        </button>
+
+      </form>
+
+      <div class="auth-footer">
+        Don't have an account?
+        <a href="/student/register.html">
+          Register here
+        </a>
+      </div>
+
+      <a href="/" class="back-link">
+        ← Back to Home
+      </a>
+
+    </div>
+
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+
+  <script>
+
+    // Already logged in? Skip straight to the dashboard.
+    redirectLoggedInUser();
+
+    const form = document.getElementById('loginForm');
+    const errorMessage =
+      document.getElementById('errorMessage');
+
+    const loginButton =
+      document.getElementById('loginButton');
+
+    form.addEventListener('submit', async (e) => {
+
+      e.preventDefault();
+
+      errorMessage.style.display = 'none';
+
+      loginButton.disabled = true;
+      loginButton.textContent = 'Logging in...';
+
+      try {
+
+        const email =
+          document.getElementById('email').value.trim();
+
+        const password =
+          document.getElementById('password').value;
+
+        const data = await apiFetch(
+          '/auth/student/login',
+          {
+            method: 'POST',
+            body: JSON.stringify({
+              email,
+              password
+            })
+          }
+        );
+
+        saveAuth(data);
+
+        showToast('Welcome back!', 'success');
+
+        window.location.href =
+          '/student/dashboard.html';
+
+      } catch (error) {
+
+        errorMessage.textContent =
+          error.message;
+
+        errorMessage.style.display = 'block';
+
+      } finally {
+
+        loginButton.disabled = false;
+        loginButton.textContent = 'Login';
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>

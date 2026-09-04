@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>HostelCare | Hostel Complaint Management</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+  <header class="navbar">
+
+    <div class="logo">
+      <span class="logo-icon">⬡</span>
+      HostelCare
+    </div>
+
+    <div class="nav-buttons" id="navButtons">
+
+      <a href="/student/login.html" class="nav-btn">
+        Student Login
+      </a>
+
+      <a href="/warden/login.html" class="nav-btn">
+        Warden Login
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <main class="hero">
+
+    <div class="hero-content">
+
+      <span class="hero-eyebrow">Hostel Complaint Management</span>
+
+      <h1>Report it once.<br>Track it till it's fixed.</h1>
+
+      <p>
+        HostelCare gives students a simple way to report maintenance
+        issues and gives wardens a clear, organised queue to manage,
+        update and resolve them — no more lost complaint registers.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a href="/student/login.html" class="primary-btn">
+          Student Login
+        </a>
+
+        <a href="/student/register.html" class="secondary-btn">
+          Create Student Account
+        </a>
+
+        <a href="/warden/login.html" class="secondary-btn">
+          Warden Login
+        </a>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <section class="features">
+
+    <div class="section-heading">
+      <span>Why HostelCare</span>
+      <h2>Everything both sides need, nothing they don't</h2>
+    </div>
+
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3>Quick Reporting</h3>
+        <p>Students submit a complaint with category, priority and description in under a minute.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📡</div>
+        <h3>Live Status Tracking</h3>
+        <p>Every complaint moves through Pending → In Progress → Completed, visible to the student in real time.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🗂️</div>
+        <h3>One Warden Queue</h3>
+        <p>Wardens see every complaint across the hostel in one dashboard, filterable by status.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3>Direct Updates</h3>
+        <p>Wardens can leave a note on any complaint so students know exactly what's happening.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Role-Based Access</h3>
+        <p>Separate secure logins for students and wardens, each seeing only what they need to.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>At-a-Glance Stats</h3>
+        <p>Both dashboards summarise totals, pending, in-progress and completed counts instantly.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="how-it-works">
+
+    <div class="section-heading">
+      <span>How it works</span>
+      <h2>Three steps, start to finish</h2>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Student submits</h3>
+        <p>Log a complaint with category, priority and a short description.</p>
+      </div>
+
+      <div class="step-connector"></div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Warden reviews</h3>
+        <p>The warden sees it instantly, sets a status and adds a note.</p>
+      </div>
+
+      <div class="step-connector"></div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Student stays updated</h3>
+        <p>Status and warden notes appear on the student's own dashboard.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <footer class="site-footer">
+    <p>HostelCare — built for hostels that want their complaints organised, not lost.</p>
+  </footer>
+
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+
+  <script>
+    // If someone lands on the marketing page while already
+    // logged in, swap the nav buttons for a direct dashboard
+    // link instead of making them log in again.
+    (function () {
+      const user = getUser();
+      if (!user) return;
+
+      const dashboardUrl =
+        user.role === 'warden'
+          ? '/warden/dashboard.html'
+          : '/student/dashboard.html';
+
+      document.getElementById('navButtons').innerHTML = `
+        <a href="${dashboardUrl}" class="nav-btn">Go to Dashboard</a>
+        <a href="#" class="nav-btn" id="landingLogout">Logout</a>
+      `;
+
+      document.getElementById('landingLogout')
+        .addEventListener('click', function (e) {
+          e.preventDefault();
+          logout();
+        });
+    })();
+  </script>
+
+</body>
+
+</html>

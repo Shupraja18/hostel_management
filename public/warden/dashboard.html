@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Warden Dashboard | HostelCare</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+  <aside class="sidebar">
+
+    <div class="sidebar-logo">
+
+      <h2>HostelCare</h2>
+
+      <p>Warden Portal</p>
+
+    </div>
+
+
+    <ul class="sidebar-menu">
+
+      <li>
+        <a
+          href="#"
+          class="active"
+        >
+          <span>📋</span> All Complaints
+        </a>
+      </li>
+
+      <li>
+        <button onclick="logout()">
+          <span>⎋</span> Logout
+        </button>
+      </li>
+
+    </ul>
+
+  </aside>
+
+
+  <main class="main-content">
+
+    <header class="topbar">
+
+      <h1>Warden Dashboard</h1>
+
+      <div class="user-info">
+
+        <div
+          class="user-avatar"
+          id="userAvatar"
+        >
+          W
+        </div>
+
+        <div class="user-details">
+
+          <strong id="userName">
+            Warden
+          </strong>
+
+          <span>
+            Hostel Warden
+          </span>
+
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <div class="content">
+
+
+      <div class="welcome-box fade-in-up">
+
+        <h2>
+          Warden Control Panel
+        </h2>
+
+        <p>
+          Manage student complaints,
+          update their status and communicate
+          with students.
+        </p>
+
+      </div>
+
+
+      <!-- STATISTICS -->
+
+      <div class="stats-grid fade-in-up" style="animation-delay: 0.05s">
+
+        <div class="stat-card">
+
+          <h3>Total</h3>
+
+          <div
+            class="stat-number"
+            id="totalComplaints"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <h3>Pending</h3>
+
+          <div
+            class="stat-number"
+            id="pendingComplaints"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <h3>In Progress</h3>
+
+          <div
+            class="stat-number"
+            id="progressComplaints"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <h3>Completed</h3>
+
+          <div
+            class="stat-number"
+            id="completedComplaints"
+          >
+            0
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- COMPLAINTS -->
+
+      <div class="section-card fade-in-up" style="animation-delay: 0.1s">
+
+        <div class="section-header">
+
+          <h2>
+            All Student Complaints
+          </h2>
+
+          <div class="section-header-actions">
+
+            <select id="statusFilter" class="filter-select">
+              <option value="All">All Statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+
+            <button
+              class="btn btn-primary"
+              onclick="loadComplaints()"
+            >
+              ↻ Refresh
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div
+          id="complaintList"
+          class="warden-complaints"
+        >
+
+          <div class="loading">
+            <span class="spinner dark"></span>&nbsp; Loading complaints...
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </main>
+
+</div>
+
+
+<script src="/js/api.js"></script>
+
+<script src="/js/auth.js"></script>
+
+<script src="/js/ui.js"></script>
+
+<script src="/js/warden.js"></script>
+
+</body>
+
+</html>

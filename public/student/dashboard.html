@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Student Dashboard | HostelCare</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- IMPORTANT:
+       Because this file is inside /student,
+       use /css/... NOT ../css/... -->
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+
+<body>
+
+  <nav class="navbar student-nav">
+    <div class="nav-brand">
+      <span class="brand-icon">🏠</span>
+      <span>HostelCare</span>
+    </div>
+
+    <div class="nav-right">
+      <span id="studentName">Student</span>
+
+      <button
+        type="button"
+        class="logout-btn"
+        onclick="logout()">
+        Logout
+      </button>
+    </div>
+  </nav>
+
+
+  <main class="dashboard-container">
+
+    <!-- HEADER -->
+    <section class="dashboard-header fade-in-up">
+      <div>
+        <h1>Student Dashboard</h1>
+        <p>View and manage your hostel complaints.</p>
+      </div>
+
+      <button
+        type="button"
+        class="primary-btn"
+        onclick="showComplaintForm()">
+        + New Complaint
+      </button>
+    </section>
+
+
+    <!-- STATS -->
+    <section class="stats-grid fade-in-up" style="animation-delay: 0.05s">
+
+      <div class="stat-card">
+        <h3>Total</h3>
+        <div class="stat-number" id="totalComplaints">0</div>
+      </div>
+
+      <div class="stat-card">
+        <h3>Pending</h3>
+        <div class="stat-number" id="pendingComplaints">0</div>
+      </div>
+
+      <div class="stat-card">
+        <h3>In Progress</h3>
+        <div class="stat-number" id="progressComplaints">0</div>
+      </div>
+
+      <div class="stat-card">
+        <h3>Completed</h3>
+        <div class="stat-number" id="completedComplaints">0</div>
+      </div>
+
+    </section>
+
+
+    <!-- STUDENT INFO -->
+    <section class="student-info-card fade-in-up" style="animation-delay: 0.1s">
+
+      <div class="info-item">
+        <span class="info-label">Name</span>
+        <strong id="infoName">-</strong>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">Email</span>
+        <strong id="infoEmail">-</strong>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">Room</span>
+        <strong id="infoRoom">-</strong>
+      </div>
+
+      <div class="info-item">
+        <span class="info-label">Phone</span>
+        <strong id="infoPhone">-</strong>
+      </div>
+
+    </section>
+
+
+    <!-- COMPLAINT FORM -->
+    <section
+      id="complaintFormSection"
+      class="form-card hidden">
+
+      <div class="section-title">
+        <div>
+          <h2>Submit Complaint</h2>
+          <p>Tell the warden what needs attention.</p>
+        </div>
+      </div>
+
+      <form id="complaintForm">
+
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="category">
+              Category
+            </label>
+
+            <select id="category" required>
+              <option value="">Select category</option>
+              <option value="Plumbing">Plumbing</option>
+              <option value="Electrical">Electrical</option>
+              <option value="Internet">Internet</option>
+              <option value="Cleanliness">Cleanliness</option>
+              <option value="Food">Food</option>
+              <option value="Room">Room</option>
+              <option value="Security">Security</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+
+          <div class="form-group">
+            <label for="priority">
+              Priority
+            </label>
+
+            <select id="priority" required>
+              <option value="">Select priority</option>
+              <option value="Low">Low</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+
+        </div>
+
+
+        <div class="form-group">
+          <label for="description">
+            Description
+          </label>
+
+          <textarea
+            id="description"
+            rows="5"
+            placeholder="Describe your complaint..."
+            required></textarea>
+        </div>
+
+
+        <div class="form-actions">
+
+          <button
+            type="button"
+            class="secondary-btn"
+            onclick="hideComplaintForm()">
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="primary-btn">
+            Submit Complaint
+          </button>
+
+        </div>
+
+      </form>
+
+      <p
+        id="formMessage"
+        class="form-message">
+      </p>
+
+    </section>
+
+
+    <!-- MY COMPLAINTS -->
+    <section class="complaints-section">
+
+      <div class="section-title">
+
+        <div>
+          <h2>My Complaints</h2>
+          <p>Track the status of complaints you submitted.</p>
+        </div>
+
+        <button
+          type="button"
+          class="refresh-btn"
+          onclick="loadComplaints()">
+          ↻ Refresh
+        </button>
+
+      </div>
+
+
+      <div id="complaintsContainer">
+
+        <div class="loading">
+          <span class="spinner dark"></span>&nbsp; Loading complaints...
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/student.js"></script>
+
+</body>
+</html>
